@@ -14,20 +14,20 @@ Site da Laudino 3D: vitrine de peças impressas em 3D (PLA), precificador de imp
 
 ## Como o preço é calculado
 
-Por peça:
+Os parâmetros ficam na aba **Parâmetros** do admin (tabela `configuracoes`). Por peça:
 
 - Material = peso (kg) × preço do filamento (R$/kg)
 - Energia = potência (kW) × horas × tarifa (R$/kWh)
-- Máquina = horas × desgaste (R$/h)
-- Custo = (material + energia + máquina) × (1 + taxa de falha) + mão de obra + extras
+- Máquina = horas × (valor da impressora ÷ vida útil em horas + manutenção por hora)
+- Custo = (material + energia + máquina) × (1 + taxa de falha) + mão de obra + extras + embalagem
 
-Preço de venda = custo × quantidade × (1 + margem de lucro). A lógica fica em `assets/js/precificador.js`.
+Preço = custo × quantidade × (1 + margem) ÷ (1 − impostos − taxa de venda), nunca abaixo do preço mínimo por peça. A lógica fica em `assets/js/precificador.js`.
 
 ## Banco de dados (Supabase)
 
 Projeto `pdmrsehoflbiycrfashf` (região sa-east-1). O esquema está em `supabase/migrations/`.
 
-Tabelas: `filamentos`, `produtos`, `configuracoes` (linha única com os parâmetros de custo), `orcamentos`, `pedidos` e `admins`.
+Tabelas: `clientes`, `fornecedores`, `filamentos` (ligado ao fornecedor), `produtos`, `configuracoes` (linha única com os parâmetros de custo), `orcamentos` e `pedidos` (ligados ao cliente) e `admins`.
 
 Segurança (RLS ligada em todas as tabelas):
 

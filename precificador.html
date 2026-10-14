@@ -68,37 +68,31 @@
 
         <details style="margin-top:16px">
           <summary>Parâmetros de custo</summary>
+          <p class="aviso" style="margin-top:10px">Os valores padrão ficam na aba Parâmetros do <a href="admin.html">admin</a>. Mudanças aqui valem só para este cálculo.</p>
           <div class="linha">
-            <div>
-              <label for="tarifa_kwh">Tarifa de energia (R$/kWh)</label>
-              <input id="tarifa_kwh" type="number" step="0.01" min="0">
-            </div>
-            <div>
-              <label for="potencia_impressora_w">Potência da impressora (W)</label>
-              <input id="potencia_impressora_w" type="number" min="0">
-            </div>
+            <div><label for="tarifa_kwh">Tarifa de energia (R$/kWh)</label><input id="tarifa_kwh" type="number" step="0.01" min="0"></div>
+            <div><label for="potencia_impressora_w">Potência da impressora (W)</label><input id="potencia_impressora_w" type="number" min="0"></div>
           </div>
           <div class="linha">
-            <div>
-              <label for="custo_maquina_hora">Desgaste da máquina (R$/h)</label>
-              <input id="custo_maquina_hora" type="number" step="0.01" min="0">
-            </div>
-            <div>
-              <label for="custo_mao_obra_hora">Mão de obra (R$/h)</label>
-              <input id="custo_mao_obra_hora" type="number" step="0.01" min="0">
-            </div>
+            <div><label for="valor_impressora">Valor da impressora (R$)</label><input id="valor_impressora" type="number" step="0.01" min="0"></div>
+            <div><label for="vida_util_horas">Vida útil (horas)</label><input id="vida_util_horas" type="number" min="1"></div>
           </div>
           <div class="linha">
-            <div>
-              <label for="taxa_falha_pct">Taxa de falha (%)</label>
-              <input id="taxa_falha_pct" type="number" step="0.1" min="0">
-            </div>
-            <div>
-              <label for="margem_lucro_pct">Margem de lucro (%)</label>
-              <input id="margem_lucro_pct" type="number" step="1" min="0">
-            </div>
+            <div><label for="manutencao_hora">Manutenção (R$/h)</label><input id="manutencao_hora" type="number" step="0.01" min="0"></div>
+            <div><label for="custo_mao_obra_hora">Mão de obra (R$/h)</label><input id="custo_mao_obra_hora" type="number" step="0.01" min="0"></div>
           </div>
-          <button type="button" id="salvarCfg" class="secundario oculto" style="margin-top:12px">Salvar como padrão</button>
+          <div class="linha">
+            <div><label for="custo_embalagem">Embalagem por peça (R$)</label><input id="custo_embalagem" type="number" step="0.01" min="0"></div>
+            <div><label for="taxa_falha_pct">Taxa de falha (%)</label><input id="taxa_falha_pct" type="number" step="0.1" min="0"></div>
+          </div>
+          <div class="linha">
+            <div><label for="margem_lucro_pct">Margem de lucro (%)</label><input id="margem_lucro_pct" type="number" step="1" min="0"></div>
+            <div><label for="preco_minimo">Preço mínimo por peça (R$)</label><input id="preco_minimo" type="number" step="0.01" min="0"></div>
+          </div>
+          <div class="linha">
+            <div><label for="impostos_pct">Impostos (%)</label><input id="impostos_pct" type="number" step="0.1" min="0"></div>
+            <div><label for="taxa_venda_pct">Taxa de cartão/marketplace (%)</label><input id="taxa_venda_pct" type="number" step="0.1" min="0"></div>
+          </div>
         </details>
       </form>
 
@@ -112,10 +106,14 @@
         </table>
 
         <div id="areaSalvar" class="oculto" style="margin-top:16px">
-          <label for="cliente_nome">Cliente</label>
-          <input id="cliente_nome" placeholder="Nome do cliente">
-          <label for="cliente_contato">Contato</label>
-          <input id="cliente_contato" placeholder="WhatsApp ou e-mail">
+          <label for="cliente_id">Cliente</label>
+          <select id="cliente_id"><option value="">Cliente avulso (não cadastrado)</option></select>
+          <div id="avulso">
+            <label for="cliente_nome">Nome</label>
+            <input id="cliente_nome" placeholder="Nome do cliente">
+            <label for="cliente_contato">Contato</label>
+            <input id="cliente_contato" placeholder="WhatsApp ou e-mail">
+          </div>
           <button type="button" id="salvar" style="margin-top:12px">Salvar orçamento</button>
         </div>
         <p id="msg" class="aviso" style="margin-top:12px">Entre na área Admin para salvar orçamentos.</p>
@@ -132,6 +130,7 @@
     const num = (id) => parseFloat($(id).value) || 0;
     const CFG_CAMPOS = Object.keys(PADRAO);
     let filamentos = [];
+    let clientes = [];
     let ultimo = null;
 
     function preencherCfg(cfg) {
@@ -163,11 +162,13 @@
         ['Desgaste da máquina', r.custo_maquina],
         ['Mão de obra', r.custo_mao_obra],
         ['Extras', r.custo_extra],
+        ['Embalagem', r.custo_embalagem],
       ];
       $('detalhe').innerHTML = linhas
         .map(([n, v]) => `<tr><td>${n}</td><td class="num">${fmt(v)}</td></tr>`).join('')
         + `<tr class="total"><td>Custo total (com taxa de falha)</td><td class="num">${fmt(r.custo_total)}</td></tr>`
-        + `<tr><td>Lucro</td><td class="num">${fmt(r.preco_final - r.custo_total)}</td></tr>`;
+        + `<tr><td>Impostos e taxas</td><td class="num">${fmt(r.valor_impostos_taxas)}</td></tr>`
+        + `<tr><td>Lucro</td><td class="num">${fmt(r.lucro)}</td></tr>`;
     }
 
     async function carregarFilamentos() {
@@ -189,25 +190,27 @@
     $('salvar').addEventListener('click', async () => {
       if (!$('descricao').value.trim()) { $('descricao').focus(); return; }
       const e = lerEntrada();
-      const { custo_material, custo_energia, custo_maquina, custo_mao_obra, custo_extra, custo_total, preco_final } = ultimo;
+      const { custo_material, custo_energia, custo_maquina, custo_mao_obra, custo_extra, custo_embalagem,
+        custo_total, valor_impostos_taxas, preco_final } = ultimo;
+      const cli = clientes.find((c) => String(c.id) === $('cliente_id').value);
       $('salvar').disabled = true;
       const { error } = await sb.from('orcamentos').insert({
         descricao: $('descricao').value.trim(),
-        cliente_nome: $('cliente_nome').value.trim() || null,
-        cliente_contato: $('cliente_contato').value.trim() || null,
+        cliente_id: cli ? cli.id : null,
+        cliente_nome: cli ? cli.nome : ($('cliente_nome').value.trim() || null),
+        cliente_contato: cli ? (cli.telefone || cli.email) : ($('cliente_contato').value.trim() || null),
         filamento_id: $('filamento').value ? Number($('filamento').value) : null,
         peso_g: e.peso_g, tempo_min: e.tempo_min, quantidade: e.quantidade,
-        custo_material, custo_energia, custo_maquina, custo_mao_obra, custo_extra, custo_total, preco_final
+        custo_material, custo_energia, custo_maquina, custo_mao_obra, custo_extra, custo_embalagem,
+        custo_total, valor_impostos_taxas, preco_final
       });
       $('salvar').disabled = false;
       $('msg').className = error ? 'msg-erro' : 'msg-ok';
       $('msg').textContent = error ? `Erro ao salvar: ${error.message}` : 'Orçamento salvo.';
     });
 
-    $('salvarCfg').addEventListener('click', async () => {
-      const { error } = await sb.from('configuracoes').update(lerCfg()).eq('id', 1);
-      $('msg').className = error ? 'msg-erro' : 'msg-ok';
-      $('msg').textContent = error ? `Erro: ${error.message}` : 'Parâmetros salvos como padrão.';
+    $('cliente_id').addEventListener('change', () => {
+      $('avulso').classList.toggle('oculto', !!$('cliente_id').value);
     });
 
     (async () => {
@@ -217,8 +220,10 @@
       if (await isAdmin()) {
         const { data } = await sb.from('configuracoes').select('*').eq('id', 1).single();
         if (data) preencherCfg(data);
+        const { data: cls } = await sb.from('clientes').select('id, nome, telefone, email').eq('ativo', true).order('nome');
+        clientes = cls || [];
+        $('cliente_id').insertAdjacentHTML('beforeend', clientes.map((c) => `<option value="${c.id}">${esc(c.nome)}</option>`).join(''));
         $('areaSalvar').classList.remove('oculto');
-        $('salvarCfg').classList.remove('oculto');
         $('msg').textContent = '';
         recalcular();
       }
