@@ -213,7 +213,12 @@ $('formLogin').addEventListener('submit', async (ev) => {
   ev.preventDefault();
   $('msgLogin').textContent = '';
   const { error } = await sb.auth.signInWithPassword({ email: $('email').value, password: $('senha').value });
-  if (error) { $('msgLogin').textContent = 'E-mail ou senha incorretos.'; return; }
+  if (error) {
+    $('msgLogin').textContent = error.message === 'Invalid login credentials'
+      ? 'E-mail ou senha incorretos.'
+      : `Não foi possível entrar: ${error.message}`;
+    return;
+  }
   iniciar();
 });
 
