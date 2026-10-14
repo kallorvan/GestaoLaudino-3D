@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laudino 3D</title>
+  <meta name="description" content="Peças impressas em 3D em PLA, sob medida e personalizadas.">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="topo">
+    <a class="marca" href="index.html">Laudino <span>3D</span></a>
+    <nav>
+      <a href="index.html" class="ativo">Vitrine</a>
+      <a href="precificador.html">Precificador</a>
+      <a href="admin.html">Admin</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Impressão 3D sob medida</h1>
+      <p>Porta-canetas, peças personalizadas com logotipo e projetos sob encomenda, impressos em PLA.</p>
+    </section>
+
+    <section id="vitrine" class="grade" aria-live="polite"></section>
+    <p id="estado" class="vazio">Carregando produtos…</p>
+  </main>
+
+  <footer>Laudino 3D</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/supabase.js"></script>
+  <script>
+    async function carregarVitrine() {
+      const estado = document.getElementById('estado');
+      const { data, error } = await sb
+        .from('produtos')
+        .select('nome, slug, descricao, imagem_url, preco_venda, filamentos(cor, material)')
+        .eq('publicado', true)
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        estado.textContent = 'Não foi possível carregar os produtos agora.';
+        estado.classList.add('msg-erro');
+        return;
+      }
+      if (!data.length) {
+        estado.textContent = 'Nenhum produto publicado ainda.';
+        return;
+      }
+      estado.classList.add('oculto');
+
+      const zap = APP_CONFIG.whatsapp;
+      document.getElementById('vitrine').innerHTML = data.map((p) => {
+        const fil = p.filamentos ? `${esc(p.filamentos.material)} ${esc(p.filamentos.cor || '')}` : '';
+        const msg = encodeURIComponent(`Olá! Tenho interesse no produto "${p.nome}".`);
+        return `
+          <article class="card">
+            ${p.imagem_url ? `<img src="${esc(p.imagem_url)}" alt="${esc(p.nome)}" loading="lazy">` : '<img alt="">'}
+            <div class="corpo">
+              <h3>${esc(p.nome)}</h3>
+              ${p.descricao ? `<p>${esc(p.descricao)}</p>` : ''}
+              ${fil ? `<p>${fil}</p>` : ''}
+              <div class="preco">${p.preco_venda != null ? fmt(p.preco_venda) : 'Sob consulta'}</div>
+              ${zap ? `<a class="botao" target="_blank" rel="noopener" href="https://wa.me/${esc(zap)}?text=${msg}">Pedir pelo WhatsApp</a>` : ''}
+            </div>
+          </article>`;
+      }).join('');
+    }
+    carregarVitrine();
+  </script>
+</body>
+</html>

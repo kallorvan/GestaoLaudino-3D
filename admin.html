@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Laudino 3D</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header class="topo">
+    <a class="marca" href="index.html">Laudino <span>3D</span></a>
+    <nav>
+      <a href="index.html">Vitrine</a>
+      <a href="precificador.html">Precificador</a>
+      <a href="admin.html" class="ativo">Admin</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="login" class="painel oculto" style="max-width:420px;margin:40px auto">
+      <h2 style="margin-top:0">Entrar</h2>
+      <form id="formLogin">
+        <label for="email">E-mail</label>
+        <input id="email" type="email" required autocomplete="username">
+        <label for="senha">Senha</label>
+        <input id="senha" type="password" required autocomplete="current-password">
+        <button style="margin-top:14px">Entrar</button>
+      </form>
+      <p id="msgLogin" class="msg-erro"></p>
+    </section>
+
+    <section id="semAcesso" class="painel oculto" style="max-width:640px;margin:40px auto">
+      <h2 style="margin-top:0">Conta sem acesso de administrador</h2>
+      <p>Para liberar esta conta, rode no SQL Editor do Supabase:</p>
+      <pre class="aviso" id="sqlAdmin" style="white-space:pre-wrap"></pre>
+      <button class="secundario" data-sair>Sair</button>
+    </section>
+
+    <section id="painel" class="oculto">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <div class="abas" id="abas">
+          <button data-aba="produtos" class="ativo">Produtos</button>
+          <button data-aba="filamentos">Filamentos</button>
+          <button data-aba="orcamentos">Orçamentos</button>
+          <button data-aba="pedidos">Pedidos</button>
+        </div>
+        <button class="secundario" data-sair>Sair</button>
+      </div>
+      <p id="msg"></p>
+      <div class="duas-colunas">
+        <div class="painel tabela-rolagem" id="lista"></div>
+        <form class="painel" id="formItem"></form>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/supabase.js"></script>
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>
