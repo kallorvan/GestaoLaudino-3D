@@ -3,5 +3,8 @@
 window.APP_CONFIG = {
   supabaseUrl: 'https://pdmrsehoflbiycrfashf.supabase.co',
   supabaseKey: 'sb_publishable_zjpMCPlIRtNwAC9y5e5T_Q_b9jTpJns',
-  whatsapp: '' // ex.: '5511999999999' para o botão "Pedir pelo WhatsApp"
+  // Contato mostrado na vitrine. Preencha para ativar os botões de pedido.
+  whatsapp: '', // só números com DDI e DDD, ex.: '5511999999999'
+  email: '',    // ex.: 'contato@laudino3d.com.br'
+  instagram: '' // ex.: 'laudino3d'
 };

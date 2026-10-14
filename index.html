@@ -3,68 +3,215 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Laudino 3D</title>
-  <meta name="description" content="Peças impressas em 3D em PLA, sob medida e personalizadas.">
+  <title>Laudino 3D | Impressão 3D sob medida</title>
+  <meta name="description" content="Peças impressas em 3D em PLA: porta-canetas, brindes com logotipo e projetos sob encomenda.">
+  <meta name="theme-color" content="#c2410c">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 3 9v14l13 7 13-7V9z' fill='%23c2410c'/%3E%3Cpath d='M3 9l13 7 13-7M16 16v14' fill='none' stroke='%23fff' stroke-opacity='.6' stroke-width='1.4'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
   <header class="topo">
-    <a class="marca" href="index.html">Laudino <span>3D</span></a>
-    <nav>
-      <a href="index.html" class="ativo">Vitrine</a>
-      <a href="precificador.html">Precificador</a>
-      <a href="admin.html">Admin</a>
-    </nav>
+    <div class="barra">
+      <a class="marca" href="index.html"><span data-logo></span><span>Laudino <em>3D</em></span></a>
+      <nav class="menu" aria-label="Principal">
+        <a class="so-desktop" href="#produtos">Produtos</a>
+        <a class="so-desktop" href="#como-funciona">Como funciona</a>
+        <a class="so-desktop" href="#servicos">Sob medida</a>
+        <a class="botao" href="#contato" data-contato>Pedir orçamento</a>
+      </nav>
+    </div>
   </header>
 
   <main>
     <section class="hero">
-      <h1>Impressão 3D sob medida</h1>
-      <p>Porta-canetas, peças personalizadas com logotipo e projetos sob encomenda, impressos em PLA.</p>
+      <div>
+        <span class="sobretitulo">Impressão 3D em PLA</span>
+        <h1>Peças em 3D do jeito que você <em>imaginou</em></h1>
+        <p class="lead">Porta-canetas, brindes com o logotipo da sua empresa e projetos sob encomenda, impressos camada por camada com acabamento caprichado.</p>
+        <div class="acoes">
+          <a class="botao grande" href="#produtos">Ver produtos</a>
+          <a class="botao grande secundario" href="#contato" data-contato>Pedir orçamento</a>
+        </div>
+        <div class="selos">
+          <span><i data-icone="folha"></i>PLA biodegradável</span>
+          <span><i data-icone="pincel"></i>Personalizado com sua marca</span>
+          <span><i data-icone="caminhao"></i>Envio para todo o Brasil</span>
+        </div>
+      </div>
+
+      <div class="hero-arte" aria-hidden="true">
+        <!-- Ilustração: bico de impressora depositando a última camada de um porta-canetas. -->
+        <svg viewBox="0 0 400 400">
+          <defs>
+            <linearGradient id="peca" x1="0" x2="1">
+              <stop offset="0" stop-color="#ea580c"/>
+              <stop offset=".55" stop-color="#fb923c"/>
+              <stop offset="1" stop-color="#c2410c"/>
+            </linearGradient>
+          </defs>
+          <path d="M60 300 200 360 340 300 200 240Z" fill="#78716c" opacity=".18"/>
+          <path d="M60 300 200 360 340 300 200 240Z" fill="none" stroke="#78716c" stroke-opacity=".35" stroke-dasharray="4 6"/>
+          <g>
+            <path d="M130 170v120a70 26 0 0 0 140 0V170" fill="url(#peca)"/>
+            <g stroke="#7c2d12" stroke-opacity=".25" fill="none">
+              <path d="M130 190a70 26 0 0 0 140 0"/><path d="M130 210a70 26 0 0 0 140 0"/>
+              <path d="M130 230a70 26 0 0 0 140 0"/><path d="M130 250a70 26 0 0 0 140 0"/>
+              <path d="M130 270a70 26 0 0 0 140 0"/>
+            </g>
+            <ellipse cx="200" cy="170" rx="70" ry="26" fill="#fdba74"/>
+            <ellipse cx="200" cy="170" rx="56" ry="19" fill="#9a3412" opacity=".55"/>
+          </g>
+          <g>
+            <rect x="170" y="40" width="60" height="44" rx="8" fill="#292524"/>
+            <rect x="184" y="84" width="32" height="18" fill="#44403c"/>
+            <path d="M188 102h24l-8 18h-8z" fill="#d6d3d1"/>
+            <path d="M200 120v28" stroke="#fb923c" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="200" cy="150" r="4" fill="#fb923c"/>
+            <path d="M200 20v20" stroke="#292524" stroke-width="6"/>
+          </g>
+          <path d="M248 150a70 26 0 0 1 22 20" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none" opacity=".7"/>
+        </svg>
+      </div>
     </section>
 
-    <section id="vitrine" class="grade" aria-live="polite"></section>
-    <p id="estado" class="vazio">Carregando produtos…</p>
+    <section id="produtos" class="secao">
+      <header>
+        <span class="sobretitulo">Vitrine</span>
+        <h2>Produtos prontos para pedir</h2>
+        <p>Modelos testados e aprovados. Todos podem ser feitos em outras cores ou com o seu logotipo.</p>
+      </header>
+      <div id="vitrine" class="grade" aria-live="polite" aria-busy="true"></div>
+    </section>
+
+    <section id="como-funciona" class="secao">
+      <header>
+        <span class="sobretitulo">Como funciona</span>
+        <h2>Do pedido à peça na sua mão</h2>
+      </header>
+      <div class="passos">
+        <article class="passo">
+          <h3>Conte a sua ideia</h3>
+          <p>Escolha um produto da vitrine ou mande um desenho, foto ou arquivo STL do que precisa.</p>
+        </article>
+        <article class="passo">
+          <h3>Receba o orçamento</h3>
+          <p>Calculamos material e tempo de impressão e enviamos o preço e o prazo, sem compromisso.</p>
+        </article>
+        <article class="passo">
+          <h3>Impressão e entrega</h3>
+          <p>Imprimimos, fazemos o acabamento e enviamos ou combinamos a retirada.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="servicos" class="secao">
+      <header>
+        <span class="sobretitulo">Sob medida</span>
+        <h2>Projetos para você e para a sua empresa</h2>
+      </header>
+      <div class="servicos">
+        <article class="servico">
+          <i data-icone="presente"></i>
+          <h3>Brindes corporativos</h3>
+          <p>Porta-canetas, chaveiros e organizadores com o logotipo da sua marca, em pequenas ou médias quantidades.</p>
+        </article>
+        <article class="servico">
+          <i data-icone="lampada"></i>
+          <h3>Protótipos e peças técnicas</h3>
+          <p>Transforme um desenho em peça física para testar encaixe, tamanho e função antes de produzir.</p>
+        </article>
+        <article class="servico">
+          <i data-icone="engrenagem"></i>
+          <h3>Reposição e reparo</h3>
+          <p>Aquela peça quebrada que ninguém vende mais pode ser modelada e impressa de novo.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contato" class="faixa-cta">
+      <div>
+        <h2>Tem um projeto em mente?</h2>
+        <p id="textoContato">Mande uma mensagem e receba o orçamento sem compromisso.</p>
+      </div>
+      <a class="botao grande oculto" id="botaoContato" target="_blank" rel="noopener"><i data-icone="whatsapp" style="width:20px;height:20px;display:inline-flex"></i>Falar no WhatsApp</a>
+    </section>
   </main>
 
-  <footer>Laudino 3D</footer>
+  <footer class="rodape">
+    <div class="barra">
+      <span>© <span id="ano"></span> Laudino 3D · Impressão 3D em PLA</span>
+      <span><a href="precificador.html">Precificador</a> · <a href="admin.html">Área interna</a></span>
+    </div>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
   <script src="assets/js/config.js"></script>
   <script src="assets/js/supabase.js"></script>
+  <script src="assets/js/ui.js"></script>
   <script>
+    document.getElementById('ano').textContent = new Date().getFullYear();
+
+    // Contato: WhatsApp, depois e-mail; sem nenhum configurado, o botão fica escondido.
+    function linkContato(texto) {
+      if (APP_CONFIG.whatsapp) return `https://wa.me/${APP_CONFIG.whatsapp}?text=${encodeURIComponent(texto)}`;
+      if (APP_CONFIG.email) return `mailto:${APP_CONFIG.email}?subject=${encodeURIComponent('Orçamento Laudino 3D')}&body=${encodeURIComponent(texto)}`;
+      return null;
+    }
+    const linkGeral = linkContato('Olá! Gostaria de um orçamento de impressão 3D.');
+    if (linkGeral) {
+      const b = document.getElementById('botaoContato');
+      b.href = linkGeral;
+      b.classList.remove('oculto');
+      if (!APP_CONFIG.whatsapp) { b.firstElementChild.remove(); b.textContent = 'Enviar e-mail'; }
+    } else {
+      document.getElementById('textoContato').textContent = 'Em breve você poderá pedir o seu orçamento por aqui.';
+    }
+
+    const vitrine = document.getElementById('vitrine');
+    vitrine.innerHTML = Array.from({ length: 3 }, () => `
+      <div class="card esqueleto"><div class="foto"></div>
+        <div class="corpo"><div class="linha-esq" style="width:70%"></div><div class="linha-esq" style="width:45%"></div></div>
+      </div>`).join('');
+
+    const CORES = { preto: '#1c1917', branco: '#fafaf9', vermelho: '#dc2626', azul: '#2563eb', verde: '#16a34a',
+      amarelo: '#facc15', laranja: '#f97316', cinza: '#9ca3af', rosa: '#ec4899', roxo: '#9333ea', dourado: '#ca8a04', prata: '#cbd5e1' };
+    const corDe = (nome) => CORES[(nome || '').toLowerCase().split(' ')[0]] || null;
+
     async function carregarVitrine() {
-      const estado = document.getElementById('estado');
       const { data, error } = await sb
         .from('produtos')
         .select('nome, slug, descricao, imagem_url, preco_venda, filamentos(cor, material)')
         .eq('publicado', true)
         .order('created_at', { ascending: false });
+      vitrine.setAttribute('aria-busy', 'false');
 
-      if (error) {
-        estado.textContent = 'Não foi possível carregar os produtos agora.';
-        estado.classList.add('msg-erro');
+      if (error || !data.length) {
+        vitrine.innerHTML = `<div class="vazio painel" style="grid-column:1/-1">${ICONES.caixa}
+          ${error ? 'Não foi possível carregar os produtos agora. Tente de novo em instantes.'
+                  : 'Novos produtos chegando em breve. Enquanto isso, peça o seu projeto sob medida.'}</div>`;
         return;
       }
-      if (!data.length) {
-        estado.textContent = 'Nenhum produto publicado ainda.';
-        return;
-      }
-      estado.classList.add('oculto');
 
-      const zap = APP_CONFIG.whatsapp;
-      document.getElementById('vitrine').innerHTML = data.map((p) => {
-        const fil = p.filamentos ? `${esc(p.filamentos.material)} ${esc(p.filamentos.cor || '')}` : '';
-        const msg = encodeURIComponent(`Olá! Tenho interesse no produto "${p.nome}".`);
+      vitrine.innerHTML = data.map((p) => {
+        const f = p.filamentos;
+        const cor = f && corDe(f.cor);
+        const pedido = linkContato(`Olá! Tenho interesse no produto "${p.nome}".`);
         return `
           <article class="card">
-            ${p.imagem_url ? `<img src="${esc(p.imagem_url)}" alt="${esc(p.nome)}" loading="lazy">` : '<img alt="">'}
+            <div class="foto">${p.imagem_url
+              ? `<img src="${esc(p.imagem_url)}" alt="${esc(p.nome)}" loading="lazy">`
+              : ICONES.cubo}</div>
             <div class="corpo">
               <h3>${esc(p.nome)}</h3>
               ${p.descricao ? `<p>${esc(p.descricao)}</p>` : ''}
-              ${fil ? `<p>${fil}</p>` : ''}
-              <div class="preco">${p.preco_venda != null ? fmt(p.preco_venda) : 'Sob consulta'}</div>
-              ${zap ? `<a class="botao" target="_blank" rel="noopener" href="https://wa.me/${esc(zap)}?text=${msg}">Pedir pelo WhatsApp</a>` : ''}
+              ${f ? `<div><span class="chip">${cor ? `<span class="bolinha" style="background:${cor}"></span>` : ''}${esc(f.material)} ${esc(f.cor || '')}</span></div>` : ''}
+              <div class="rodape-card">
+                <span class="preco">${p.preco_venda != null ? fmt(p.preco_venda) : 'Sob consulta'}</span>
+                ${pedido ? `<a class="botao pequeno" style="padding:8px 14px" target="_blank" rel="noopener" href="${esc(pedido)}">Pedir</a>` : ''}
+              </div>
             </div>
           </article>`;
       }).join('');

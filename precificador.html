@@ -4,71 +4,60 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Precificador 3D</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 3 9v14l13 7 13-7V9z' fill='%23c2410c'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
   <header class="topo">
-    <a class="marca" href="index.html">Laudino <span>3D</span></a>
-    <nav>
-      <a href="index.html">Vitrine</a>
-      <a href="precificador.html" class="ativo">Precificador</a>
-      <a href="admin.html">Admin</a>
-    </nav>
+    <div class="barra">
+      <a class="marca" href="index.html"><span data-logo></span><span>Laudino <em>3D</em></span></a>
+      <nav class="menu" aria-label="Área interna">
+        <span class="etiqueta-interna">Área interna</span>
+        <a href="precificador.html" class="ativo">Precificador</a>
+        <a href="admin.html">Admin</a>
+        <a href="index.html">Ver site</a>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <section class="hero">
+    <section class="cabecalho-pagina">
       <h1>Precificador de impressão</h1>
-      <p>Informe o peso e o tempo que o fatiador mostrou para calcular o custo e o preço de venda.</p>
+      <p>Informe o peso e o tempo que o fatiador mostrou. O preço é calculado com os parâmetros de custo do admin.</p>
     </section>
 
-    <div class="duas-colunas" style="margin-top:20px">
+    <div class="duas-colunas">
       <form id="form" class="painel" autocomplete="off">
-        <label for="descricao">Peça</label>
-        <input id="descricao" placeholder="Ex.: Porta-canetas com logo" required>
+        <div class="titulo-grupo">Peça</div>
+        <label for="descricao">Descrição</label>
+        <input id="descricao" placeholder="Ex.: Porta-canetas com logo Toliman" required>
 
         <label for="filamento">Filamento</label>
         <select id="filamento"><option value="">Manual (informe o preço por kg)</option></select>
 
         <div class="linha">
-          <div>
-            <label for="preco_kg">Preço do filamento (R$/kg)</label>
-            <input id="preco_kg" type="number" step="0.01" min="0" value="120">
-          </div>
-          <div>
-            <label for="peso_g">Peso (g)</label>
-            <input id="peso_g" type="number" step="0.1" min="0" value="50" required>
-          </div>
+          <div><label for="preco_kg">Preço do filamento (R$/kg)</label><input id="preco_kg" type="number" step="0.01" min="0" value="120"></div>
+          <div><label for="peso_g">Peso (g)</label><input id="peso_g" type="number" step="0.1" min="0" value="50" required></div>
         </div>
 
+        <div class="titulo-grupo" style="margin-top:22px">Impressão</div>
         <div class="linha">
-          <div>
-            <label for="horas">Tempo (horas)</label>
-            <input id="horas" type="number" min="0" value="3">
-          </div>
-          <div>
-            <label for="minutos">Tempo (minutos)</label>
-            <input id="minutos" type="number" min="0" max="59" value="0">
-          </div>
+          <div><label for="horas">Tempo (horas)</label><input id="horas" type="number" min="0" value="3"></div>
+          <div><label for="minutos">Tempo (minutos)</label><input id="minutos" type="number" min="0" max="59" value="0"></div>
         </div>
-
         <div class="linha">
-          <div>
-            <label for="quantidade">Quantidade</label>
-            <input id="quantidade" type="number" min="1" value="1">
-          </div>
-          <div>
-            <label for="mao_obra_min">Acabamento por peça (min)</label>
-            <input id="mao_obra_min" type="number" min="0" value="0">
-          </div>
+          <div><label for="quantidade">Quantidade</label><input id="quantidade" type="number" min="1" value="1"></div>
+          <div><label for="mao_obra_min">Acabamento por peça (min)</label><input id="mao_obra_min" type="number" min="0" value="0"></div>
         </div>
-
         <label for="custo_extra">Custos extras por peça (R$)</label>
-        <input id="custo_extra" type="number" step="0.01" min="0" value="0">
+        <input id="custo_extra" type="number" step="0.01" min="0" value="0" placeholder="Ímãs, parafusos, adesivos…">
 
-        <details style="margin-top:16px">
-          <summary>Parâmetros de custo</summary>
-          <p class="aviso" style="margin-top:10px">Os valores padrão ficam na aba Parâmetros do <a href="admin.html">admin</a>. Mudanças aqui valem só para este cálculo.</p>
+        <details style="margin-top:22px">
+          <summary>Ajustar parâmetros só para este cálculo</summary>
           <div class="linha">
             <div><label for="tarifa_kwh">Tarifa de energia (R$/kWh)</label><input id="tarifa_kwh" type="number" step="0.01" min="0"></div>
             <div><label for="potencia_impressora_w">Potência da impressora (W)</label><input id="potencia_impressora_w" type="number" min="0"></div>
@@ -96,27 +85,24 @@
         </details>
       </form>
 
-      <section class="painel">
-        <div class="aviso">Preço de venda</div>
+      <section class="painel fixo" aria-live="polite">
+        <div style="color:var(--muted);font-size:.9rem">Preço de venda</div>
         <div class="destaque" id="precoFinal">R$ 0,00</div>
-        <div id="precoUnit" class="aviso" style="background:none;padding:0"></div>
+        <div id="precoUnit" style="color:var(--muted);font-size:.92rem;min-height:1.4em"></div>
 
-        <table style="margin-top:16px">
-          <tbody id="detalhe"></tbody>
-        </table>
+        <div class="barra-custos" id="barra" role="img" aria-label="Composição do preço"></div>
+        <table class="legenda"><tbody id="detalhe"></tbody></table>
 
-        <div id="areaSalvar" class="oculto" style="margin-top:16px">
+        <div id="areaSalvar" class="oculto" style="margin-top:18px;border-top:1px solid var(--border);padding-top:6px">
           <label for="cliente_id">Cliente</label>
           <select id="cliente_id"><option value="">Cliente avulso (não cadastrado)</option></select>
-          <div id="avulso">
-            <label for="cliente_nome">Nome</label>
-            <input id="cliente_nome" placeholder="Nome do cliente">
-            <label for="cliente_contato">Contato</label>
-            <input id="cliente_contato" placeholder="WhatsApp ou e-mail">
+          <div id="avulso" class="linha">
+            <div><label for="cliente_nome">Nome</label><input id="cliente_nome" placeholder="Nome do cliente"></div>
+            <div><label for="cliente_contato">Contato</label><input id="cliente_contato" placeholder="WhatsApp ou e-mail"></div>
           </div>
-          <button type="button" id="salvar" style="margin-top:12px">Salvar orçamento</button>
+          <button type="button" id="salvar" style="margin-top:14px;width:100%">Salvar orçamento</button>
         </div>
-        <p id="msg" class="aviso" style="margin-top:12px">Entre na área Admin para salvar orçamentos.</p>
+        <p id="msg" class="aviso" style="margin:16px 0 0">Entre no <a href="admin.html">admin</a> para salvar orçamentos.</p>
       </section>
     </div>
   </main>
@@ -124,6 +110,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
   <script src="assets/js/config.js"></script>
   <script src="assets/js/supabase.js"></script>
+  <script src="assets/js/ui.js"></script>
   <script src="assets/js/precificador.js"></script>
   <script>
     const $ = (id) => document.getElementById(id);
@@ -156,19 +143,26 @@
       $('precoFinal').textContent = fmt(r.preco_final);
       const qtd = lerEntrada().quantidade;
       $('precoUnit').textContent = qtd > 1 ? `${fmt(r.preco_unitario)} por peça` : '';
-      const linhas = [
-        ['Material', r.custo_material],
-        ['Energia', r.custo_energia],
-        ['Desgaste da máquina', r.custo_maquina],
-        ['Mão de obra', r.custo_mao_obra],
-        ['Extras', r.custo_extra],
-        ['Embalagem', r.custo_embalagem],
-      ];
-      $('detalhe').innerHTML = linhas
-        .map(([n, v]) => `<tr><td>${n}</td><td class="num">${fmt(v)}</td></tr>`).join('')
-        + `<tr class="total"><td>Custo total (com taxa de falha)</td><td class="num">${fmt(r.custo_total)}</td></tr>`
-        + `<tr><td>Impostos e taxas</td><td class="num">${fmt(r.valor_impostos_taxas)}</td></tr>`
-        + `<tr><td>Lucro</td><td class="num">${fmt(r.lucro)}</td></tr>`;
+      // A falha não aparece como item: está embutida no custo, por isso a barra usa o custo total.
+      const diretos = r.custo_material + r.custo_energia + r.custo_maquina;
+      const falha = Math.max(0, r.custo_total - diretos - r.custo_mao_obra - r.custo_extra - r.custo_embalagem);
+      const partes = [
+        ['Material', r.custo_material, '#ea580c'],
+        ['Energia', r.custo_energia, '#facc15'],
+        ['Desgaste da máquina', r.custo_maquina, '#a8a29e'],
+        ['Margem para falhas', falha, '#78716c'],
+        ['Mão de obra', r.custo_mao_obra, '#0ea5e9'],
+        ['Extras e embalagem', r.custo_extra + r.custo_embalagem, '#8b5cf6'],
+        ['Impostos e taxas', r.valor_impostos_taxas, '#ef4444'],
+        ['Lucro', r.lucro, '#16a34a'],
+      ].filter(([, v]) => v > 0.004);
+      const total = r.preco_final || 1;
+      $('barra').innerHTML = partes.map(([n, v, c]) =>
+        `<span title="${n}: ${fmt(v)}" style="width:${(v / total) * 100}%;background:${c}"></span>`).join('');
+      $('detalhe').innerHTML = partes.map(([n, v, c]) =>
+        `<tr><td><span class="cor" style="background:${c}"></span>${n}</td><td class="num">${fmt(v)}</td>
+         <td class="num" style="color:var(--muted);width:3.5em">${Math.round((v / total) * 100)}%</td></tr>`).join('')
+        + `<tr class="total"><td>Custo de produção</td><td class="num">${fmt(r.custo_total)}</td><td></td></tr>`;
     }
 
     async function carregarFilamentos() {
@@ -205,8 +199,7 @@
         custo_total, valor_impostos_taxas, preco_final
       });
       $('salvar').disabled = false;
-      $('msg').className = error ? 'msg-erro' : 'msg-ok';
-      $('msg').textContent = error ? `Erro ao salvar: ${error.message}` : 'Orçamento salvo.';
+      toast(error ? `Erro ao salvar: ${error.message}` : 'Orçamento salvo. Veja na aba Orçamentos do admin.', !!error);
     });
 
     $('cliente_id').addEventListener('change', () => {
@@ -224,7 +217,7 @@
         clientes = cls || [];
         $('cliente_id').insertAdjacentHTML('beforeend', clientes.map((c) => `<option value="${c.id}">${esc(c.nome)}</option>`).join(''));
         $('areaSalvar').classList.remove('oculto');
-        $('msg').textContent = '';
+        $('msg').classList.add('oculto');
         recalcular();
       }
     })();

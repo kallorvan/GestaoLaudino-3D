@@ -5,63 +5,83 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Admin Laudino 3D</title>
   <meta name="robots" content="noindex">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 3 9v14l13 7 13-7V9z' fill='%23c2410c'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
   <header class="topo">
-    <a class="marca" href="index.html">Laudino <span>3D</span></a>
-    <nav>
-      <a href="index.html">Vitrine</a>
-      <a href="precificador.html">Precificador</a>
-      <a href="admin.html" class="ativo">Admin</a>
-    </nav>
+    <div class="barra">
+      <a class="marca" href="index.html"><span data-logo></span><span>Laudino <em>3D</em></span></a>
+      <nav class="menu" aria-label="Área interna">
+        <span class="etiqueta-interna">Área interna</span>
+        <a href="precificador.html">Precificador</a>
+        <a href="admin.html" class="ativo">Admin</a>
+        <a href="index.html">Ver site</a>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <section id="login" class="painel oculto" style="max-width:420px;margin:40px auto">
-      <h2 style="margin-top:0">Entrar</h2>
+    <section id="login" class="painel login-box oculto">
+      <h1 style="margin:0 0 4px;font-size:1.5rem">Entrar</h1>
+      <p style="color:var(--muted);margin:0 0 8px">Acesso restrito à equipe Laudino 3D.</p>
       <form id="formLogin">
         <label for="email">E-mail</label>
         <input id="email" type="email" required autocomplete="username">
         <label for="senha">Senha</label>
         <input id="senha" type="password" required autocomplete="current-password">
-        <button style="margin-top:14px">Entrar</button>
+        <button style="margin-top:18px;width:100%">Entrar</button>
       </form>
-      <p id="msgLogin" class="msg-erro"></p>
+      <p id="msgLogin" class="msg-erro" role="alert"></p>
     </section>
 
-    <section id="semAcesso" class="painel oculto" style="max-width:640px;margin:40px auto">
-      <h2 style="margin-top:0">Conta sem acesso de administrador</h2>
+    <section id="semAcesso" class="painel login-box oculto" style="max-width:640px">
+      <h1 style="margin-top:0;font-size:1.4rem">Conta sem acesso de administrador</h1>
       <p>Para liberar esta conta, rode no SQL Editor do Supabase:</p>
       <pre class="aviso" id="sqlAdmin" style="white-space:pre-wrap"></pre>
       <button class="secundario" data-sair>Sair</button>
     </section>
 
-    <section id="painel" class="oculto">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
-        <div class="abas" id="abas">
-          <button data-aba="produtos" class="ativo">Produtos</button>
-          <button data-aba="filamentos">Filamentos</button>
-          <button data-aba="clientes">Clientes</button>
-          <button data-aba="fornecedores">Fornecedores</button>
-          <button data-aba="orcamentos">Orçamentos</button>
-          <button data-aba="pedidos">Pedidos</button>
-          <button data-aba="parametros">Parâmetros</button>
-        </div>
-        <button class="secundario" data-sair>Sair</button>
+    <section id="painel" class="admin oculto">
+      <nav class="lateral" id="abas" aria-label="Seções do admin">
+        <div class="grupo">Visão geral</div>
+        <button data-aba="inicio" class="ativo"><i data-icone="loja"></i>Início</button>
+        <div class="grupo">Vendas</div>
+        <button data-aba="orcamentos"><i data-icone="recibo"></i>Orçamentos</button>
+        <button data-aba="pedidos"><i data-icone="prancheta"></i>Pedidos</button>
+        <button data-aba="clientes"><i data-icone="pessoas"></i>Clientes</button>
+        <div class="grupo">Catálogo</div>
+        <button data-aba="produtos"><i data-icone="caixa"></i>Produtos</button>
+        <button data-aba="filamentos"><i data-icone="rolo"></i>Filamentos</button>
+        <button data-aba="fornecedores"><i data-icone="caminhao"></i>Fornecedores</button>
+        <div class="grupo">Configuração</div>
+        <button data-aba="parametros"><i data-icone="ajustes"></i>Parâmetros de custo</button>
+        <div class="sair"><button data-sair><i data-icone="sair"></i>Sair</button></div>
+      </nav>
+
+      <div class="conteudo-admin">
+        <header>
+          <h1 id="tituloAba">Início</h1>
+          <div style="display:flex;gap:8px;flex-wrap:wrap" id="acoesAba">
+            <input id="busca" class="busca" type="search" placeholder="Buscar…" aria-label="Buscar">
+            <button id="novo">Novo</button>
+          </div>
+        </header>
+        <div id="conteudo"></div>
       </div>
-      <p id="msg"></p>
-      <div class="duas-colunas">
-        <div class="painel tabela-rolagem" id="lista"></div>
-        <form class="painel" id="formItem"></form>
-      </div>
-      <div id="parametros" class="oculto"></div>
     </section>
   </main>
+
+  <div id="gavetaFundo" class="gaveta-fundo oculto"></div>
+  <form id="formItem" class="gaveta oculto" autocomplete="off" aria-labelledby="tituloGaveta"></form>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
   <script src="assets/js/config.js"></script>
   <script src="assets/js/supabase.js"></script>
+  <script src="assets/js/ui.js"></script>
   <script src="assets/js/admin.js"></script>
 </body>
 </html>
