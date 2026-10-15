@@ -1,51 +1,31 @@
 /* Laudino 3D: tokens e componentes compartilhados por todas as páginas. */
 :root {
-  --bg: #f7f6f3;
-  --surface: #ffffff;
-  --surface-2: #f1efea;
-  --text: #17171a;
-  --muted: #5e5e66;
-  --border: #e4e1da;
-  --accent: #c2410c;        /* laranja com contraste AA para texto branco */
-  --accent-hover: #9a3412;
-  --accent-soft: #fff1e8;
-  --accent-text: #ffffff;
-  --ok: #15803d;
-  --ok-soft: #e7f6ec;
-  --erro: #b91c1c;
-  --erro-soft: #fdecec;
-  --aviso: #a16207;
-  --aviso-soft: #fdf6e3;
-  --info: #1d4ed8;
-  --info-soft: #e8efff;
+  /* Identidade Laudino 3D Maker: preto, branco e azul elétrico. */
+  color-scheme: dark;
+  --bg: #06080b;
+  --surface: #0e1218;
+  --surface-2: #161c25;
+  --text: #f3f6f9;
+  --muted: #9aa7b4;
+  --border: #232c38;
+  --accent: #1ea7ff;
+  --accent-hover: #55bdff;
+  --accent-soft: #0a2233;
+  --accent-text: #001726;
+  --brilho: 0 0 0 1px rgba(30, 167, 255, .35), 0 0 24px rgba(30, 167, 255, .25);
+  --ok: #4ade80;
+  --ok-soft: #10261a;
+  --erro: #f87171;
+  --erro-soft: #2c1414;
+  --aviso: #facc15;
+  --aviso-soft: #29230d;
+  --info: #93c5fd;
+  --info-soft: #13213a;
   --radius: 14px;
   --radius-sm: 9px;
-  --sombra: 0 1px 2px rgba(20, 20, 30, .04), 0 8px 24px rgba(20, 20, 30, .06);
+  --sombra: 0 1px 2px rgba(0, 0, 0, .4), 0 10px 30px rgba(0, 0, 0, .35);
   --fonte: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --fonte-titulo: "Space Grotesk", var(--fonte);
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #111113;
-    --surface: #1a1a1d;
-    --surface-2: #232327;
-    --text: #f3f3f5;
-    --muted: #a3a3ad;
-    --border: #2e2e33;
-    --accent: #f97316;
-    --accent-hover: #fb923c;
-    --accent-soft: #2b1a10;
-    --accent-text: #1a0d05;
-    --ok: #4ade80;
-    --ok-soft: #12271a;
-    --erro: #f87171;
-    --erro-soft: #2c1414;
-    --aviso: #facc15;
-    --aviso-soft: #2a2410;
-    --info: #93b4ff;
-    --info-soft: #151d33;
-    --sombra: 0 1px 2px rgba(0, 0, 0, .3), 0 8px 24px rgba(0, 0, 0, .25);
-  }
+  --fonte-titulo: "Poppins", var(--fonte);
 }
 
 * { box-sizing: border-box; }
@@ -66,7 +46,7 @@ img { max-width: 100%; display: block; }
 /* ---------- Cabeçalho ---------- */
 header.topo {
   position: sticky; top: 0; z-index: 20;
-  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  background: color-mix(in srgb, var(--bg) 82%, transparent);
   backdrop-filter: saturate(1.4) blur(10px);
   border-bottom: 1px solid var(--border);
 }
@@ -79,8 +59,10 @@ header.topo {
   font-family: var(--fonte-titulo); font-weight: 700; font-size: 1.2rem;
   text-decoration: none; color: var(--text); white-space: nowrap;
 }
-.marca svg { width: 30px; height: 30px; flex: none; }
-.marca em { font-style: normal; color: var(--accent); }
+.marca img, .marca svg { width: 38px; height: 38px; flex: none; }
+.marca .nome { display: flex; flex-direction: column; line-height: 1; }
+.marca .nome b { font-size: 1.2rem; font-weight: 700; }
+.marca .nome small { font-family: var(--fonte); font-size: .68rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin-top: 3px; }
 nav.menu { display: flex; align-items: center; gap: 4px; }
 nav.menu a {
   padding: 8px 12px; border-radius: 8px; text-decoration: none;
@@ -121,8 +103,8 @@ section { scroll-margin-top: 80px; }
 .selos svg { width: 18px; height: 18px; color: var(--accent); flex: none; }
 .hero-arte {
   position: relative; aspect-ratio: 1; border-radius: 28px; overflow: hidden;
-  background: radial-gradient(120% 120% at 20% 10%, var(--accent-soft), var(--surface) 60%);
-  border: 1px solid var(--border); box-shadow: var(--sombra);
+  background: radial-gradient(90% 90% at 50% 35%, #0d3554 0%, #081a29 45%, var(--surface) 80%);
+  border: 1px solid var(--border); box-shadow: var(--sombra), var(--brilho);
 }
 .hero-arte svg { width: 100%; height: 100%; }
 
@@ -148,7 +130,7 @@ section { scroll-margin-top: 80px; }
   overflow: hidden; display: flex; flex-direction: column;
   transition: transform .15s ease, box-shadow .15s ease;
 }
-.card:hover { transform: translateY(-2px); box-shadow: var(--sombra); }
+.card:hover { transform: translateY(-2px); box-shadow: var(--sombra); border-color: #1d4a6e; }
 .card .foto { aspect-ratio: 4 / 3; background: var(--surface-2); display: grid; place-items: center; overflow: hidden; }
 .card .foto img { width: 100%; height: 100%; object-fit: cover; }
 .card .foto svg { width: 56px; height: 56px; color: var(--muted); opacity: .5; }
@@ -177,13 +159,13 @@ section { scroll-margin-top: 80px; }
 .servico p { margin: 0; color: var(--muted); font-size: .95rem; }
 .faixa-cta {
   margin-top: 64px; padding: 40px; border-radius: 24px;
-  background: linear-gradient(135deg, #1c1917, #431407);
+  background: radial-gradient(120% 160% at 100% 0%, #0d3554, #06080b 60%);
+  border: 1px solid #1d4a6e; box-shadow: var(--brilho);
   color: #fff; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
 }
 .faixa-cta h2 { margin: 0 0 6px; font-size: clamp(1.5rem, 3vw, 2rem); }
-.faixa-cta p { margin: 0; color: #e7d9cf; }
-.faixa-cta .botao { background: #f97316; color: #1a0d05; }
-.faixa-cta .botao:hover { background: #fb923c; }
+.faixa-cta p { margin: 0; color: #b9c8d6; }
+
 
 /* ---------- Painéis e formulários ---------- */
 .painel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
@@ -215,7 +197,7 @@ button, .botao {
   background: var(--accent); color: var(--accent-text); font: inherit; font-weight: 600;
   text-decoration: none; transition: background .12s, transform .05s;
 }
-button:hover, .botao:hover { background: var(--accent-hover); }
+button:hover, .botao:hover { background: var(--accent-hover); box-shadow: 0 0 18px rgba(30, 167, 255, .35); }
 button:active, .botao:active { transform: translateY(1px); }
 button.secundario, .botao.secundario { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
 button.secundario:hover, .botao.secundario:hover { background: var(--surface-2); }

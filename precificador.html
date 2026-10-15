@@ -3,18 +3,18 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Precificador 3D</title>
+  <title>Precificador | Laudino 3D Maker</title>
   <meta name="robots" content="noindex">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 3 9v14l13 7 13-7V9z' fill='%23c2410c'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="assets/img/logo-marca.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
   <header class="topo">
     <div class="barra">
-      <a class="marca" href="index.html"><span data-logo></span><span>Laudino <em>3D</em></span></a>
+      <a class="marca" href="index.html"><img src="assets/img/logo-marca.svg" alt=""><span class="nome"><b>Laudino</b><small>3D Maker</small></span></a>
       <nav class="menu" aria-label="Área interna">
         <span class="etiqueta-interna">Área interna</span>
         <a href="precificador.html" class="ativo">Precificador</a>
@@ -147,14 +147,14 @@
       const diretos = r.custo_material + r.custo_energia + r.custo_maquina;
       const falha = Math.max(0, r.custo_total - diretos - r.custo_mao_obra - r.custo_extra - r.custo_embalagem);
       const partes = [
-        ['Material', r.custo_material, '#ea580c'],
+        ['Material', r.custo_material, '#1ea7ff'],
         ['Energia', r.custo_energia, '#facc15'],
-        ['Desgaste da máquina', r.custo_maquina, '#a8a29e'],
-        ['Margem para falhas', falha, '#78716c'],
-        ['Mão de obra', r.custo_mao_obra, '#0ea5e9'],
-        ['Extras e embalagem', r.custo_extra + r.custo_embalagem, '#8b5cf6'],
+        ['Desgaste da máquina', r.custo_maquina, '#94a3b8'],
+        ['Margem para falhas', falha, '#475569'],
+        ['Mão de obra', r.custo_mao_obra, '#a78bfa'],
+        ['Extras e embalagem', r.custo_extra + r.custo_embalagem, '#f472b6'],
         ['Impostos e taxas', r.valor_impostos_taxas, '#ef4444'],
-        ['Lucro', r.lucro, '#16a34a'],
+        ['Lucro', r.lucro, '#4ade80'],
       ].filter(([, v]) => v > 0.004);
       const total = r.preco_final || 1;
       $('barra').innerHTML = partes.map(([n, v, c]) =>

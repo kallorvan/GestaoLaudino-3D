@@ -1,6 +1,6 @@
-# Gestão Laudino 3D
+# Gestão Laudino 3D Maker
 
-Site da Laudino 3D: vitrine de peças impressas em 3D (PLA), precificador de impressão e área administrativa, com banco de dados no Supabase.
+Site da Laudino 3D Maker: vitrine de peças impressas em 3D (PLA), precificador de impressão e área administrativa, com banco de dados no Supabase.
 
 ## Páginas
 
